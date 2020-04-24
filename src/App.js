@@ -1,17 +1,20 @@
 import React from "react";
 import "./App.css";
 import Header from "./Components/Header";
-import HeaderDay from "./Components/HeaderDay";
+import HeaderView from "./Components/HeaderView";
 import ApptList from "./Components/ApptList";
+import AddAppt from "./Components/AddAppt";
 
 class App extends React.Component {
-  state = [
-    { "30/04/2020": "dentist 9am" },
-    { "30/04/2020": "lunch 12pm" },
-    { "30/04/2020": "cinema 7pm" },
-    { "01/05/2020": "work 9am" },
-    { "01/05/2020": "hairdresser 5pm" },
-  ];
+  state = {
+    appts: [
+      { date: "2020-04-30", time: "09:00", description: "dentist" },
+      { date: "2020-04-30", time: "12:00", description: "lunch" },
+      { date: "2020-04-30", time: "19:00", description: "cinema" },
+      { date: "2020-05-01", time: "09:00", description: "work" },
+      { date: "2020-05-01", time: "17:00", description: "hairdresser" },
+    ],
+  };
 
   handleAddClick = (event) => {
     event.preventDefault();
@@ -25,6 +28,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <AddAppt handleAddClick={this.handleAddClick} />
         <Header />
         <form>
           <label>
@@ -48,8 +52,8 @@ class App extends React.Component {
           </label>
         </form>
         <main>
-          <HeaderDay />
-          <ApptList appts={this.state} />
+          <HeaderView />
+          <ApptList appts={this.state.appts} />
         </main>
       </div>
     );
