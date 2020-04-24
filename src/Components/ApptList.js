@@ -1,13 +1,20 @@
 import React from "react";
 
 function ApptList(props) {
-  const { appts } = props;
+  const { appts, selectedDate } = props;
+
+  const filteredAppts = Object.entries(appts).filter((appt) => {
+    if (appt[0] === selectedDate) return true;
+    return false;
+  });
   return (
     <ul>
-      {appts.map((appt) => {
+      {filteredAppts.map((appt, index) => {
+        console.log(filteredAppts);
+        console.log(appt);
         return (
-          <li key={appt.description}>
-            {appt.time}, {appt.description}
+          <li key={index}>
+            {appt[1].time} {appt[1].description}
           </li>
         );
       })}
@@ -16,5 +23,3 @@ function ApptList(props) {
 }
 
 export default ApptList;
-
-// <p>Appointment Time: {`hello ${name}} </p>

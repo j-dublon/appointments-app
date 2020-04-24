@@ -7,22 +7,25 @@ import AddAppt from "./Components/AddAppt";
 
 class App extends React.Component {
   state = {
-    appts: [
-      { date: "2020-04-30", time: "09:00", description: "dentist" },
-      { date: "2020-04-30", time: "12:00", description: "lunch" },
-      { date: "2020-04-30", time: "19:00", description: "cinema" },
-      { date: "2020-05-01", time: "09:00", description: "work" },
-      { date: "2020-05-01", time: "17:00", description: "hairdresser" },
-    ],
+    appts: {
+      "2020-04-30": { time: "09:00", description: "dentist" },
+      "2020-05-01": { time: "09:00", description: "work" },
+    },
+    selectedDate: "",
   };
 
   handleAddClick = (event) => {
     event.preventDefault();
-    console.log("clicked!");
   };
 
-  handleViewClick = () => {
-    console.log("look!");
+  handleViewClick = (event) => {
+    const { value } = event.target;
+    this.setState((currentState) => {
+      return {
+        ...currentState.appts,
+        selectedDate: value,
+      };
+    });
   };
 
   render() {
@@ -53,7 +56,10 @@ class App extends React.Component {
         </form>
         <main>
           <HeaderView />
-          <ApptList appts={this.state.appts} />
+          <ApptList
+            appts={this.state.appts}
+            selectedDate={this.state.selectedDate}
+          />
         </main>
       </div>
     );
